@@ -1,6 +1,7 @@
 package me.alekseinovikov.open_gtd.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -20,5 +21,8 @@ interface TaskDao {
 
     @Query("UPDATE tasks SET status = :newStatus WHERE id = :taskId")
     suspend fun completeTask(taskId: String, newStatus: String = TaskStatus.COMPLETED.name)
+
+    @Delete
+    suspend fun deleteTask(task: TaskEntity)
 
 }

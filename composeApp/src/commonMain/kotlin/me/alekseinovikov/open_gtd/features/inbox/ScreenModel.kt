@@ -14,7 +14,7 @@ import kotlin.time.Clock
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-class InboxScreenModel(private val dao: TaskDao) : ScreenModel {
+class ScreenModel(private val dao: TaskDao) : ScreenModel {
 
     val tasks: StateFlow<List<TaskEntity>> = dao.getTasksByList(ListType.INBOX.name)
         .stateIn(
@@ -34,6 +34,12 @@ class InboxScreenModel(private val dao: TaskDao) : ScreenModel {
             )
 
             dao.insertTask(newTask)
+        }
+    }
+
+    fun deleteTask(task: TaskEntity) {
+        screenModelScope.launch {
+            dao.deleteTask(task)
         }
     }
 
