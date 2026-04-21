@@ -8,11 +8,16 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 
-@Database(entities = [TaskEntity::class], version = 1)
+@Database(
+    entities = [TaskEntity::class, Project::class, Areas::class],
+    version = 1
+)
 @TypeConverters(TaskEntityConverters::class)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
+    abstract fun projectDao(): ProjectDao
+    abstract fun areaDao(): AreaDao
 }
 
 expect object AppDatabaseConstructor: RoomDatabaseConstructor<AppDatabase>
